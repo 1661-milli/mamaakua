@@ -171,21 +171,22 @@ function setQuickReplies(options) {
     qr.appendChild(btn);
   });
 }
-
+conversationHistory.push({ role: 'user', content: userMessage });
 async function callGemini(userMessage) {
-  conversationHistory.push({ role: 'user', parts: [{ text: userMessage }] });
 
-  const response = await fetch(GEMINI_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-      contents: conversationHistory
-    })
-  });
-
+  const response = await fetch(GROQ_URL, {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${GROQ_API_KEY}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    model: 'llama-3.1-8b-instant',
+    messages: conversationHistory
+  })
+});   
   const data = await response.json();
-  const reply = data.candidates[0].content.parts[0].text;
+  const reply = data.choices[0].message.content;
   conversationHistory.push({ role: 'model', parts: [{ text: reply }] });
   return reply;
 }
