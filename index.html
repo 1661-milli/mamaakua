@@ -1,115 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mama Akua's Kitchen</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Lato', sans-serif;
-    background: #1a0a00;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-  }
-  .header { text-align: center; margin-bottom: 16px; }
-  .header h1 { font-family: 'Playfair Display', serif; color: #f5a623; font-size: 1.6rem; }
-  .header p { color: #c8a87a; font-size: 0.85rem; margin-top: 4px; }
-  .chat-box {
-    width: 100%; max-width: 480px;
-    background: #2a1500; border-radius: 16px;
-    overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-    display: flex; flex-direction: column; height: 70vh;
-  }
-  .chat-top {
-    background: #f5a623; padding: 12px 16px;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .avatar {
-    width: 40px; height: 40px; background: #1a0a00;
-    border-radius: 50%; display: flex; align-items: center;
-    justify-content: center; font-size: 1.3rem;
-  }
-  .chat-top-info h2 { font-family: 'Playfair Display', serif; color: #1a0a00; font-size: 1rem; }
-  .chat-top-info p { color: #5a2d00; font-size: 0.75rem; }
-  .messages {
-    flex: 1; overflow-y: auto; padding: 16px;
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .msg {
-    max-width: 80%; padding: 10px 14px; border-radius: 16px;
-    font-size: 0.88rem; line-height: 1.5; animation: fadeIn 0.3s ease;
-    white-space: pre-wrap;
-  }
-  .msg.bot { background: #3d1f00; color: #f0d9b5; align-self: flex-start; border-bottom-left-radius: 4px; }
-  .msg.user { background: #f5a623; color: #1a0a00; align-self: flex-end; border-bottom-right-radius: 4px; font-weight: 700; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-  .quick-replies { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 16px 12px; }
-  .qr {
-    background: transparent; border: 1.5px solid #f5a623; color: #f5a623;
-    padding: 6px 12px; border-radius: 20px; font-size: 0.8rem;
-    cursor: pointer; font-family: 'Lato', sans-serif; transition: all 0.2s;
-  }
-  .qr:hover, .qr:active { background: #f5a623; color: #1a0a00; }
-  .input-area { display: flex; padding: 12px 16px; gap: 8px; border-top: 1px solid #3d1f00; }
-  .input-area input {
-    flex: 1; background: #3d1f00; border: none; border-radius: 24px;
-    padding: 10px 16px; color: #f0d9b5; font-size: 0.88rem;
-    font-family: 'Lato', sans-serif; outline: none;
-  }
-  .input-area input::placeholder { color: #7a5c3a; }
-  .input-area button {
-    background: #f5a623; border: none; border-radius: 50%;
-    width: 40px; height: 40px; font-size: 1.1rem;
-    cursor: pointer; transition: transform 0.2s;
-  }
-  .input-area button:active { transform: scale(0.9); }
-  .input-area button:disabled { opacity: 0.5; cursor: not-allowed; }
-  .typing {
-    display: flex; gap: 4px; padding: 10px 14px;
-    background: #3d1f00; border-radius: 16px;
-    border-bottom-left-radius: 4px; align-self: flex-start; width: fit-content;
-  }
-  .typing span {
-    width: 7px; height: 7px; background: #f5a623;
-    border-radius: 50%; animation: bounce 1s infinite;
-  }
-  .typing span:nth-child(2) { animation-delay: 0.2s; }
-  .typing span:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mama Akua's Kitchen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: #1a0a00;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header {
+      text-align: center;
+      padding: 24px 16px 8px;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      color: #f5a623;
+      font-size: 1.8rem;
+    }
+
+    .header p {
+      color: #c8a97e;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+
+    .chat-box {
+      width: 100%;
+      max-width: 480px;
+      background: #2a1200;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 75vh;
+      margin: 12px 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+
+    .chat-top {
+      background: #f5a623;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      font-size: 1.6rem;
+    }
+
+    .chat-top-info .name {
+      font-weight: 700;
+      color: #1a0a00;
+      font-size: 0.95rem;
+    }
+
+    .chat-top-info .status {
+      font-size: 0.75rem;
+      color: #3a1a00;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-thumb { background: #f5a62355; border-radius: 4px; }
+
+    .message {
+      max-width: 80%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.bot {
+      background: #3d1f00;
+      color: #f0d9b5;
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+    }
+
+    .message.user {
+      background: #f5a623;
+      color: #1a0a00;
+      border-bottom-right-radius: 4px;
+      align-self: flex-end;
+      font-weight: 600;
+    }
+
+    .typing {
+      display: flex;
+      gap: 4px;
+      padding: 12px 14px;
+      background: #3d1f00;
+      border-radius: 16px;
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+      width: fit-content;
+    }
+
+    .typing span {
+      width: 7px;
+      height: 7px;
+      background: #f5a623;
+      border-radius: 50%;
+      animation: bounce 1.2s infinite;
+    }
+
+    .typing span:nth-child(2) { animation-delay: 0.2s; }
+    .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    .quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0 16px 12px;
+    }
+
+    .qr {
+      background: transparent;
+      border: 1.5px solid #f5a623;
+      color: #f5a623;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-family: 'Lato', sans-serif;
+      transition: all 0.2s;
+    }
+
+    .qr:hover, .qr:active {
+      background: #f5a623;
+      color: #1a0a00;
+    }
+
+    .input-area {
+      display: flex;
+      padding: 12px 16px;
+      gap: 8px;
+      border-top: 1px solid #3d1f00;
+    }
+
+    .input-area input {
+      flex: 1;
+      background: #3d1f00;
+      border: none;
+      border-radius: 24px;
+      padding: 10px 16px;
+      color: #f0d9b5;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+    }
+
+    .input-area input::placeholder { color: #7a5535; }
+
+    .input-area button {
+      background: #f5a623;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .input-area button:hover { background: #e09510; }
+    .input-area button:disabled { background: #7a5535; cursor: not-allowed; }
+  </style>
 </head>
 <body>
+
 <div class="header">
   <h1>🍲 Mama Akua's Kitchen</h1>
   <p>Authentic Ghanaian Home Cooking • AI Assistant</p>
 </div>
+
 <div class="chat-box">
   <div class="chat-top">
-    <div class="avatar">🍲</div>
+    <div class="avatar">🍛</div>
     <div class="chat-top-info">
-      <h2>Mama Akua</h2>
-      <p>🟢 Online — AI powered</p>
+      <div class="name">Mama Akua</div>
+      <div class="status">🟢 Online — AI powered</div>
     </div>
   </div>
-  <div class="messages" id="messages"></div>
+
+  <div class="chat-messages" id="chatMessages"></div>
+
   <div class="quick-replies" id="quickReplies"></div>
+
   <div class="input-area">
     <input type="text" id="userInput" placeholder="Ask me anything..." />
-    <button id="sendBtn" onclick="sendMessage()">➤</button>
+    <button id="sendBtn" onclick="handleInput(document.getElementById('userInput').value)">➤</button>
   </div>
 </div>
 
 <script>
-const GROQ_API_KEY = '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';
-const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
+  const GROQ_API_KEY = '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';
+  const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
 
-const SYSTEM_PROMPT = `You are Mama Akua, a warm and friendly AI assistant for Mama Akua's Kitchen — an authentic Ghanaian home cooking restaurant in Osu, Accra, Ghana.
+  const SYSTEM_PROMPT = `You are Mama Akua, a warm and friendly AI assistant for Mama Akua's Kitchen — an authentic Ghanaian home cooking restaurant in Osu, Accra, Ghana.
 
 Restaurant details:
 - Location: 14 Osu High Street, Accra (near Total Fuel Station). Free parking available.
@@ -118,14 +241,12 @@ Restaurant details:
 - Delivery: Available within Osu & Labone. 30–45 mins. Minimum order GH₵ 50.
 
 Menu:
-🥘 Fufu & Light Soup — GH₵ 35
-🍛 Jollof Rice & Chicken — GH₵ 40
-🫕 Banku & Tilapia — GH₵ 45
-🍲 Waakye with extras — GH₵ 30
+🍖 Banku & Tilapia — GH₵ 45
+🌿 Waakye with extras — GH₵ 30
 🥗 Garden Egg Stew — GH₵ 25
 🍗 Grilled Chicken — GH₵ 50
-🥣 Kenkey & Fried Fish — GH₵ 28
-🧃 Fresh Sobolo — GH₵ 10
+🐟 Kenkey & Fried Fish — GH₵ 28
+🫓 Fresh Sobolo — GH₵ 10
 🥤 Bissap Juice — GH₵ 10
 
 Reservations: Customers should call/WhatsApp +233 24 000 0000 with name, date, time and number of guests.
@@ -136,98 +257,95 @@ Your personality:
 - Use emojis naturally
 - Never make up information not listed above`;
 
-let conversationHistory = [];
+  let conversationHistory = [
+    { role: 'system', content: SYSTEM_PROMPT }
+  ];
 
-function addMessage(text, sender) {
-  const msgs = document.getElementById('messages');
-  const div = document.createElement('div');
-  div.className = `msg ${sender}`;
-  div.innerText = text;
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function showTyping() {
-  const msgs = document.getElementById('messages');
-  const div = document.createElement('div');
-  div.className = 'typing'; div.id = 'typing';
-  div.innerHTML = '<span></span><span></span><span></span>';
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function removeTyping() {
-  const t = document.getElementById('typing');
-  if (t) t.remove();
-}
-
-function setQuickReplies(options) {
-  const qr = document.getElementById('quickReplies');
-  qr.innerHTML = '';
-  options.forEach(opt => {
-    const btn = document.createElement('button');
-    btn.className = 'qr'; btn.innerText = opt;
-    btn.onclick = () => handleInput(opt);
-    qr.appendChild(btn);
-  });
-}
-conversationHistory.push({ role: 'user', content: userMessage });
-async function callGemini(userMessage) {
-
-  const response = await fetch(GROQ_URL, {
-  method: 'POST',
-  headers: {
-    'Authorization': `Bearer ${GROQ_API_KEY}`,
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    model: 'llama-3.1-8b-instant',
-    messages: conversationHistory
-  })
-});   
-  const data = await response.json();
-  const reply = data.choices[0].message.content;
-  conversationHistory.push({ role: 'model', parts: [{ text: reply }] });
-  return reply;
-}
-
-async function handleInput(text) {
-  addMessage(text, 'user');
-  setQuickReplies([]);
-  document.getElementById('sendBtn').disabled = true;
-  document.getElementById('userInput').disabled = true;
-  showTyping();
-
-  try {
-    const reply = await callGemini(text);
-    removeTyping();
-    addMessage(reply, 'bot');
-  } catch (err) {
-    removeTyping();
-    addMessage('Ei! Something went wrong chale 😅 Please try again.', 'bot');
+  function addMessage(text, sender) {
+    const messages = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = `message ${sender}`;
+    div.textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+    const t = document.querySelector('.typing');
+    if (t) t.remove();
   }
 
-  document.getElementById('sendBtn').disabled = false;
-  document.getElementById('userInput').disabled = false;
-  setQuickReplies(['See menu 🍽️', 'Reserve a table', 'Delivery info', 'Location & hours']);
-}
+  function showTyping() {
+    const messages = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = 'typing';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+  }
 
-function sendMessage() {
-  const input = document.getElementById('userInput');
-  const text = input.value.trim();
-  if (!text) return;
-  input.value = '';
-  handleInput(text);
-}
+  function setQuickReplies(options) {
+    const qr = document.getElementById('quickReplies');
+    qr.innerHTML = '';
+    options.forEach(opt => {
+      const btn = document.createElement('button');
+      btn.className = 'qr';
+      btn.innerText = opt;
+      btn.onclick = () => handleInput(opt);
+      qr.appendChild(btn);
+    });
+  }
 
-document.getElementById('userInput').addEventListener('keypress', e => {
-  if (e.key === 'Enter') sendMessage();
-});
+  async function callGroq(userMessage) {
+    conversationHistory.push({ role: 'user', content: userMessage });
 
-setTimeout(() => {
-  addMessage('Akwaaba! 🙏 Welcome to Mama Akua\'s Kitchen!\n\nI\'m Mama Akua\'s AI assistant. Ask me anything about our food, location, reservations or delivery! 😊', 'bot');
-  setQuickReplies(['See menu 🍽️', 'Reserve a table', 'Delivery info', 'Location & hours']);
-}, 500);
+    const response = await fetch(GROQ_URL, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${GROQ_API_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'llama-3.1-8b-instant',
+        messages: conversationHistory
+      })
+    });
+
+    const data = await response.json();
+    const reply = data.choices[0].message.content;
+    conversationHistory.push({ role: 'assistant', content: reply });
+    return reply;
+  }
+
+  async function handleInput(text) {
+    if (!text.trim()) return;
+    document.getElementById('userInput').value = '';
+    addMessage(text, 'user');
+    setQuickReplies([]);
+    document.getElementById('sendBtn').disabled = true;
+    document.getElementById('userInput').disabled = true;
+    showTyping();
+
+    try {
+      const reply = await callGroq(text);
+      addMessage(reply, 'bot');
+      setQuickReplies(['See menu 🍽️', 'Reserve a table', 'Delivery info', 'Location & hours']);
+    } catch (e) {
+      addMessage('Ei! Something went wrong chale 😅 Please try again.', 'bot');
+    }
+
+    document.getElementById('sendBtn').disabled = false;
+    document.getElementById('userInput').disabled = false;
+    document.getElementById('userInput').focus();
+  }
+
+  document.getElementById('userInput').addEventListener('keypress', e => {
+    if (e.key === 'Enter') handleInput(e.target.value);
+  });
+
+  setTimeout(() => {
+    addMessage('Akwaaba! 🙏 Welcome to Mama Akua\'s Kitchen!\n\nI\'m Mama Akua\'s AI assistant. Ask me anything about our food, location, reservations or delivery! 😊', 'bot');
+    setQuickReplies(['See menu 🍽️', 'Reserve a table', 'Delivery info', 'Location & hours']);
+  }, 500);
 </script>
 </body>
 </html>
+
+
